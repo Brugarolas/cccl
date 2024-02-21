@@ -4,7 +4,7 @@
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// SPDX-FileCopyrightText: Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES.
+// SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES.
 //
 //===----------------------------------------------------------------------===//
 
@@ -23,6 +23,7 @@
 #  pragma system_header
 #endif // no system header
 
+#include <cuda/std/detail/libcxx/include/__concepts/__concept_macros.h>
 #include <cuda/std/detail/libcxx/include/__functional/invoke.h>
 #include <cuda/std/detail/libcxx/include/__functional/perfect_forward.h>
 #include <cuda/std/detail/libcxx/include/__fwd/get.h>
@@ -31,6 +32,8 @@
 #include <cuda/std/detail/libcxx/include/__type_traits/enable_if.h>
 #include <cuda/std/detail/libcxx/include/__type_traits/is_constructible.h>
 #include <cuda/std/detail/libcxx/include/__type_traits/is_move_constructible.h>
+#include <cuda/std/detail/libcxx/include/__type_traits/is_same.h>
+#include <cuda/std/detail/libcxx/include/__utility/declval.h>
 #include <cuda/std/detail/libcxx/include/__utility/forward.h>
 #include <cuda/std/detail/libcxx/include/__utility/integer_sequence.h>
 
@@ -38,7 +41,7 @@
 
 _LIBCUDACXX_BEGIN_NAMESPACE_STD
 
-#if _CCCL_STD_VER > 2014
+#if _CCCL_STD_VER >= 2017
 
 template <size_t _NBound, class = make_index_sequence<_NBound>>
 struct __bind_back_op;
@@ -55,7 +58,22 @@ struct __bind_back_op<_NBound, index_sequence<_Ip...>> {
 
 template <class _Fn, class _BoundArgs>
 struct __bind_back_t : __perfect_forward<__bind_back_op<tuple_size_v<_BoundArgs>>, _Fn, _BoundArgs> {
-    using __perfect_forward<__bind_back_op<tuple_size_v<_BoundArgs>>, _Fn, _BoundArgs>::__perfect_forward;
+    using __base = __perfect_forward<__bind_back_op<tuple_size_v<_BoundArgs>>, _Fn, _BoundArgs>;
+// nvbug3961621
+#if defined(_CCCL_COMPILER_NVRTC)  \
+ || (defined(_LIBCUDACXX_CUDACC_BELOW_11_3) && defined(_CCCL_COMPILER_CLANG))
+    constexpr __bind_back_t() noexcept = default;
+
+    _LIBCUDACXX_TEMPLATE(class _OrigFn, class _Args)
+      _LIBCUDACXX_REQUIRES(_LIBCUDACXX_TRAIT(is_same, _Fn, __decay_t<_OrigFn>))
+    _LIBCUDACXX_INLINE_VISIBILITY constexpr
+    __bind_back_t(_OrigFn&& __fn, _Args&& __args)
+      noexcept(noexcept(__base(cuda::std::declval<_OrigFn>(), cuda::std::declval<_Args>())))
+      : __base(_CUDA_VSTD::forward<_OrigFn>(__fn), _CUDA_VSTD::forward<_Args>(__args))
+    {}
+#else // ^^^ _CCCL_COMPILER_NVRTC || nvcc < 11.3 ^^^ / vvv !_CCCL_COMPILER_NVRTC || nvcc >= 11.3 vvv
+    using __base::__base;
+#endif // !_CCCL_COMPILER_NVRTC || nvcc >= 11.3
 };
 
 template <class _Fn, class ..._Args, class = enable_if_t<
@@ -72,7 +90,7 @@ constexpr auto __bind_back(_Fn&& __f, _Args&&... __args)
     -> decltype(      __bind_back_t<decay_t<_Fn>, tuple<decay_t<_Args>...>>(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward_as_tuple(_CUDA_VSTD::forward<_Args>(__args)...)))
     { return          __bind_back_t<decay_t<_Fn>, tuple<decay_t<_Args>...>>(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward_as_tuple(_CUDA_VSTD::forward<_Args>(__args)...)); }
 
-#endif // _CCCL_STD_VER > 2014
+#endif // _CCCL_STD_VER >= 2017
 
 _LIBCUDACXX_END_NAMESPACE_STD
 

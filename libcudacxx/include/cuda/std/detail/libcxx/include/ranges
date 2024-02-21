@@ -341,6 +341,7 @@ _CCCL_DIAG_SUPPRESS_MSVC(4848)
 #include <cuda/std/detail/libcxx/include/__ranges/single_view.h>
 #include <cuda/std/detail/libcxx/include/__ranges/size.h>
 #include <cuda/std/detail/libcxx/include/__ranges/subrange.h>
+#include <cuda/std/detail/libcxx/include/__ranges/transform_view.h>
 #include <cuda/std/detail/libcxx/include/__ranges/view_interface.h>
 #include <cuda/std/detail/libcxx/include/__ranges/views.h>
 

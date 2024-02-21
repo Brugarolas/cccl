@@ -134,6 +134,10 @@ public:
 
     __host__ __device__ friend TEST_CONSTEXPR It base(const forward_iterator& i) { return i.it_; }
 
+#if defined(TEST_COMPILER_GCC) && __GNUC__ <= 9
+    __host__ __device__ TEST_CONSTEXPR It base() const { return it_; }
+#endif // defined(TEST_COMPILER_GCC) && __GNUC__ <= 9
+
     template <class T>
     void operator,(T const &) = delete;
 };

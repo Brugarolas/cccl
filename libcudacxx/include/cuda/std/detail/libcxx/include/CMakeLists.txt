@@ -60,6 +60,8 @@ set(files
   __algorithm/prev_permutation.h
   __algorithm/push_heap.h
   __algorithm/ranges_iterator_concept.h
+  __algorithm/ranges_min_element.h
+  __algorithm/ranges_min.h
   __algorithm/remove_copy_if.h
   __algorithm/remove_copy.h
   __algorithm/remove_if.h

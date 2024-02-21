@@ -12,14 +12,31 @@
 // UNSUPPORTED: msvc-19.16
 
 // template<class T>
-//   inline constexpr bool enable_borrowed_range<owning_view<T>> = enable_borrowed_range<T>;
+//   single_view(T) -> single_view<T>;
 
 #include <cuda/std/ranges>
 
-#include "test_range.h"
+#include <cuda/std/cassert>
+#include <cuda/std/concepts>
 
-static_assert( cuda::std::ranges::borrowed_range<cuda::std::ranges::owning_view<BorrowedView>>);
-static_assert(!cuda::std::ranges::borrowed_range<cuda::std::ranges::owning_view<NonBorrowedView>>);
+#include "test_iterators.h"
+
+struct Empty {};
+
+static_assert(cuda::std::same_as<
+  decltype(cuda::std::ranges::single_view(Empty())),
+  cuda::std::ranges::single_view<Empty>
+>);
+
+static_assert(cuda::std::same_as<
+  decltype(cuda::std::ranges::single_view(cuda::std::declval<Empty&>())),
+  cuda::std::ranges::single_view<Empty>
+>);
+
+static_assert(cuda::std::same_as<
+  decltype(cuda::std::ranges::single_view(cuda::std::declval<Empty&&>())),
+  cuda::std::ranges::single_view<Empty>
+>);
 
 int main(int, char**) {
   return 0;

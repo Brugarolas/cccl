@@ -35,7 +35,6 @@ __host__ __device__ constexpr bool test() {
     unused(iter);
   }
 
-#if 0 // Unimplemented take_view
   // unbound
   {
     cuda::std::ranges::repeat_view<int> rv(0);
@@ -48,7 +47,6 @@ __host__ __device__ constexpr bool test() {
     }
     unused(iter);
   }
-#endif // Unimplemented take_view
   return true;
 }
 

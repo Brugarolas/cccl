@@ -12,7 +12,7 @@
 #define _LIBCUDACXX___FUNCTIONAL_BIND_BACK_H
 
 #ifndef __cuda_std__
-#include <__config>
+#  include <__config>
 #endif // __cuda_std__
 
 #if defined(_CCCL_IMPLICIT_SYSTEM_HEADER_GCC)
@@ -46,34 +46,24 @@ _LIBCUDACXX_BEGIN_NAMESPACE_STD
 template <size_t _NBound, class = make_index_sequence<_NBound>>
 struct __bind_back_op;
 
-template <size_t _NBound, size_t ..._Ip>
-struct __bind_back_op<_NBound, index_sequence<_Ip...>> {
-    template <class _Fn, class _BoundArgs, class... _Args>
-    _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
-    constexpr auto operator()(_Fn&& __f, _BoundArgs&& __bound_args, _Args&&... __args) const
-        noexcept(noexcept(_CUDA_VSTD::invoke(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward<_Args>(__args)..., _CUDA_VSTD::get<_Ip>(_CUDA_VSTD::forward<_BoundArgs>(__bound_args))...)))
-        -> decltype(      _CUDA_VSTD::invoke(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward<_Args>(__args)..., _CUDA_VSTD::get<_Ip>(_CUDA_VSTD::forward<_BoundArgs>(__bound_args))...))
-        { return          _CUDA_VSTD::invoke(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward<_Args>(__args)..., _CUDA_VSTD::get<_Ip>(_CUDA_VSTD::forward<_BoundArgs>(__bound_args))...); }
+template <size_t _NBound, size_t... _Ip>
+struct __bind_back_op<_NBound, index_sequence<_Ip...>>
+{
+  // clang-format off
+  template <class _Fn, class _BoundArgs, class... _Args>
+  _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY constexpr auto
+  operator()(_Fn&& __f, _BoundArgs&& __bound_args, _Args&&... __args) const
+  noexcept(noexcept(_CUDA_VSTD::invoke(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward<_Args>(__args)..., _CUDA_VSTD::get<_Ip>(_CUDA_VSTD::forward<_BoundArgs>(__bound_args))...)))
+  -> decltype(      _CUDA_VSTD::invoke(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward<_Args>(__args)..., _CUDA_VSTD::get<_Ip>(_CUDA_VSTD::forward<_BoundArgs>(__bound_args))...))
+  { return          _CUDA_VSTD::invoke(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward<_Args>(__args)..., _CUDA_VSTD::get<_Ip>(_CUDA_VSTD::forward<_BoundArgs>(__bound_args))...); }
+  // clang-format on
 };
 
 template <class _Fn, class _BoundArgs>
-struct __bind_back_t : __perfect_forward<__bind_back_op<tuple_size_v<_BoundArgs>>, _Fn, _BoundArgs> {
-    using __base = __perfect_forward<__bind_back_op<tuple_size_v<_BoundArgs>>, _Fn, _BoundArgs>;
-// nvbug3961621
-#if defined(_CCCL_COMPILER_NVRTC)  \
- || (defined(_LIBCUDACXX_CUDACC_BELOW_11_3) && defined(_CCCL_COMPILER_CLANG))
-    constexpr __bind_back_t() noexcept = default;
-
-    _LIBCUDACXX_TEMPLATE(class _OrigFn, class _Args)
-      _LIBCUDACXX_REQUIRES(_LIBCUDACXX_TRAIT(is_same, _Fn, __decay_t<_OrigFn>))
-    _LIBCUDACXX_INLINE_VISIBILITY constexpr
-    __bind_back_t(_OrigFn&& __fn, _Args&& __args)
-      noexcept(noexcept(__base(cuda::std::declval<_OrigFn>(), cuda::std::declval<_Args>())))
-      : __base(_CUDA_VSTD::forward<_OrigFn>(__fn), _CUDA_VSTD::forward<_Args>(__args))
-    {}
-#else // ^^^ _CCCL_COMPILER_NVRTC || nvcc < 11.3 ^^^ / vvv !_CCCL_COMPILER_NVRTC || nvcc >= 11.3 vvv
-    using __base::__base;
-#endif // !_CCCL_COMPILER_NVRTC || nvcc >= 11.3
+struct __bind_back_t : __perfect_forward<__bind_back_op<tuple_size_v<_BoundArgs>>, _Fn, _BoundArgs>
+{
+  _LIBCUDACXX_DELEGATE_CONSTRUCTORS(
+    __bind_back_t, __perfect_forward, __bind_back_op<tuple_size_v<_BoundArgs>>, _Fn, _BoundArgs)
 };
 
 template <class _Fn, class ..._Args, class = enable_if_t<
@@ -84,12 +74,12 @@ template <class _Fn, class ..._Args, class = enable_if_t<
         is_move_constructible<decay_t<_Args>>...
     >::value
 >>
-_LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
-constexpr auto __bind_back(_Fn&& __f, _Args&&... __args)
+// clang-format off
+_LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY constexpr auto __bind_back(_Fn&& __f, _Args&&... __args)
     noexcept(noexcept(__bind_back_t<decay_t<_Fn>, tuple<decay_t<_Args>...>>(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward_as_tuple(_CUDA_VSTD::forward<_Args>(__args)...))))
     -> decltype(      __bind_back_t<decay_t<_Fn>, tuple<decay_t<_Args>...>>(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward_as_tuple(_CUDA_VSTD::forward<_Args>(__args)...)))
     { return          __bind_back_t<decay_t<_Fn>, tuple<decay_t<_Args>...>>(_CUDA_VSTD::forward<_Fn>(__f), _CUDA_VSTD::forward_as_tuple(_CUDA_VSTD::forward<_Args>(__args)...)); }
-
+// clang-format on
 #endif // _CCCL_STD_VER >= 2017
 
 _LIBCUDACXX_END_NAMESPACE_STD

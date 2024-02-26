@@ -4,7 +4,7 @@
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// SPDX-FileCopyrightText: Copyright (c) 2023 NVIDIA CORPORATION & AFFILIATES.
+// SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES.
 // SPDX-FileCopyrightText: Copyright (c) 2023 Microsoft Corporation.
 //
 //===----------------------------------------------------------------------===//
@@ -26,15 +26,15 @@
 
 #include <cuda/std/detail/libcxx/include/__iterator/concepts.h>
 
-#if _CCCL_STD_VER > 2014
+#if _CCCL_STD_VER >= 2017
 
 _LIBCUDACXX_BEGIN_NAMESPACE_STD
 _LIBCUDACXX_BEGIN_NAMESPACE_RANGES_ABI
 
 // MSVC requires an interesting workaround for a /permissive- bug
-// We cannot simply define unreachable_sentinel_t with it friendfunctions,
-// but we must derive from a base class in a different namespace so that they
-// are only ever found through ADL
+// We cannot simply define unreachable_sentinel_t with its friend functions,
+// but we must derive from a base class in a different namespace so that they are
+// only ever found through ADL
 
 struct unreachable_sentinel_t
 #ifdef _CCCL_COMPILER_MSVC
@@ -50,7 +50,7 @@ struct __unreachable_base
       operator==(const unreachable_sentinel_t &, const _Iter &) noexcept {
     return false;
   }
-#if _CCCL_STD_VER < 2020
+#if _CCCL_STD_VER <= 2017
   _LIBCUDACXX_TEMPLATE(class _Iter)
   _LIBCUDACXX_REQUIRES(weakly_incrementable<_Iter>)
   _LIBCUDACXX_HIDE_FROM_ABI
@@ -72,7 +72,7 @@ struct __unreachable_base
       operator!=(const _Iter &, const unreachable_sentinel_t &) noexcept {
     return true;
   }
-#endif // _CCCL_STD_VER < 2020
+#endif // _CCCL_STD_VER <= 2017
 };
 
 #ifdef _CCCL_COMPILER_MSVC
@@ -86,6 +86,6 @@ _LIBCUDACXX_END_NAMESPACE_RANGES_ABI
 _LIBCUDACXX_CPO_ACCESSIBILITY unreachable_sentinel_t unreachable_sentinel{};
 _LIBCUDACXX_END_NAMESPACE_STD
 
-#endif // _CCCL_STD_VER > 2014
+#endif // _CCCL_STD_VER >= 2017
 
 #endif // _LIBCUDACXX___ITERATOR_UNREACHABLE_SENTINEL_H

@@ -257,6 +257,7 @@ set(files
   __ranges/counted.h
   __ranges/dangling.h
   __ranges/data.h
+  __ranges/defaultable_box.h
   __ranges/drop_view.h
   __ranges/drop_while_view.h
   __ranges/empty.h
@@ -265,6 +266,7 @@ set(files
   __ranges/enable_view.h
   __ranges/filter_view.h
   __ranges/iota_view.h
+  __ranges/join_view.h
   __ranges/movable_box.h
   __ranges/non_propagating_cache.h
   __ranges/owning_view.h
@@ -426,6 +428,7 @@ set(files
   __type_traits/is_constant_evaluated.h
   __undef_macros
   __utility/as_const.h
+  __utility/as_lvalue.h
   __utility/auto_cast.h
   __utility/cmp.h
   __utility/convert_to_integral.h

@@ -52,22 +52,10 @@
 #ifdef CUB_IGNORE_DEPRECATED_API
 #  define CUB_DEPRECATED
 #  define CUB_DEPRECATED_BECAUSE(MSG)
-#elif _CCCL_STD_VER >= 2014
-#  define CUB_DEPRECATED [[deprecated]]
-#  define CUB_DEPRECATED_BECAUSE(MSG) [[deprecated(MSG)]]
-#elif defined(_CCCL_COMPILER_MSVC)
-#  define CUB_DEPRECATED __declspec(deprecated)
-#  define CUB_DEPRECATED_BECAUSE(MSG) __declspec(deprecated(MSG))
-#elif defined(_CCCL_COMPILER_CLANG)
-#  define CUB_DEPRECATED __attribute__((deprecated))
-#  define CUB_DEPRECATED_BECAUSE(MSG) __attribute__((deprecated(MSG)))
-#elif defined(_CCCL_COMPILER_GCC)
-#  define CUB_DEPRECATED __attribute__((deprecated))
-#  define CUB_DEPRECATED_BECAUSE(MSG) __attribute__((deprecated(MSG)))
-#else
-#  define CUB_DEPRECATED
-#  define CUB_DEPRECATED_BECAUSE(MSG)
-#endif
+#else // ^^^ CUB_IGNORE_DEPRECATED_API ^^^ / vvv !CUB_IGNORE_DEPRECATED_API vvv
+#  define CUB_DEPRECATED _CCCL_DEPRECATED
+#  define CUB_DEPRECATED_BECAUSE(MSG) _CCCL_DEPRECATED_MSG(MSG)
+#endif // !CUB_IGNORE_DEPRECATED_API
 
 #define CUB_DETAIL_RUNTIME_DEBUG_SYNC_IS_NOT_SUPPORTED                         \
   CUB_DEPRECATED_BECAUSE(                                                      \

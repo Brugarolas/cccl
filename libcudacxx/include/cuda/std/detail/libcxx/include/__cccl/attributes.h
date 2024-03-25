@@ -31,6 +31,23 @@
 #  define __has_cpp_attribute(__x) 0
 #endif // !__has_cpp_attribute
 
+// NVCC 11.1 and 11.2 are broken with the deprecated attribute, so disable it
+#if defined(_CCCL_CUDACC_BELOW_11_3)
+#  define _CCCL_DEPRECATED
+#  define _CCCL_DEPRECATED_MSG(_MSG)
+#elif __has_attribute(deprecated)
+#  define _CCCL_DEPRECATED           __attribute__((deprecated))
+#  define _CCCL_DEPRECATED_MSG(_MSG) __attribute__((deprecated(_MSG)))
+#elif defined(_CCCL_COMPILER_MSVC)
+#  define _CCCL_DEPRECATED           __declspec(deprecated)
+#  define _CCCL_DEPRECATED_MSG(_MSG) __declspec(deprecated(_MSG))
+#elif _CCCL_STD_VER >= 2014 || __has_cpp_attribute(deprecated)
+#  define _CCCL_DEPRECATED           [[deprecated]]
+#  define _CCCL_DEPRECATED_MSG(_MSG) [[deprecated(_MSG)]]
+#else
+#  define _CCCL_DEPRECATED
+#endif
+
 // Use a function like macro to imply that it must be followed by a semicolon
 #if _CCCL_STD_VER >= 2017 && __has_cpp_attribute(fallthrough)
 #  define _CCCL_FALLTHROUGH() [[fallthrough]]

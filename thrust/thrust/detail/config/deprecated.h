@@ -39,14 +39,6 @@
 
 #ifdef THRUST_IGNORE_DEPRECATED_API
 #  define THRUST_DEPRECATED
-#elif _CCCL_STD_VER >= 2014
-#  define THRUST_DEPRECATED [[deprecated]]
-#elif defined(_CCCL_COMPILER_MSVC)
-#  define THRUST_DEPRECATED __declspec(deprecated)
-#elif defined(_CCCL_COMPILER_CLANG)
-#  define THRUST_DEPRECATED __attribute__((deprecated))
-#elif defined(_CCCL_COMPILER_GCC)
-#  define THRUST_DEPRECATED __attribute__((deprecated))
-#else
-#  define THRUST_DEPRECATED
-#endif
+#else // ^^^ THRUST_IGNORE_DEPRECATED_API ^^^ / vvv !THRUST_IGNORE_DEPRECATED_API vvv
+#  define THRUST_DEPRECATED _CCCL_DEPRECATED
+#endif // !THRUST_IGNORE_DEPRECATED_API

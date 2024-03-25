@@ -2913,7 +2913,7 @@ money_get<_CharT, _InputIterator>::__do_get(iter_type& __b, iter_type __e,
                     return false;
                 }
             }
-            _LIBCUDACXX_FALLTHROUGH();
+            _CCCL_FALLTHROUGH();
         case money_base::none:
             if (__p != 3)
             {

@@ -96,7 +96,7 @@ void __atomic_load_relaxed(const volatile _Type *__ptr, _Type *__ret) {
 template<class _Type>
 void __atomic_load(const volatile _Type *__ptr, _Type *__ret, int __memorder) {
     switch (__memorder) {
-    case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); _LIBCUDACXX_FALLTHROUGH();
+    case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); _CCCL_FALLTHROUGH();
     case __ATOMIC_CONSUME:
     case __ATOMIC_ACQUIRE: __atomic_load_relaxed(__ptr, __ret); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
     case __ATOMIC_RELAXED: __atomic_load_relaxed(__ptr, __ret); break;
@@ -150,7 +150,7 @@ template<class _Type>
 void __atomic_store(volatile _Type *__ptr, _Type *__val, int __memorder) {
     switch (__memorder) {
     case __ATOMIC_RELEASE: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); __atomic_store_relaxed(__ptr, __val); break;
-    case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); _LIBCUDACXX_FALLTHROUGH();
+    case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); _CCCL_FALLTHROUGH();
     case __ATOMIC_RELAXED: __atomic_store_relaxed(__ptr, __val); break;
     default: assert(0);
     }
@@ -201,7 +201,7 @@ bool __atomic_compare_exchange(_Type volatile *__ptr, _Type *__expected, const _
     bool success = false;
     switch (__stronger_order_msvc(__success_memorder, __failure_memorder)) {
     case __ATOMIC_RELEASE: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); success = __atomic_compare_exchange_relaxed(__ptr, __expected, __desired); break;
-    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _LIBCUDACXX_FALLTHROUGH();
+    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _CCCL_FALLTHROUGH();
     case __ATOMIC_CONSUME:
     case __ATOMIC_ACQUIRE: success = __atomic_compare_exchange_relaxed(__ptr, __expected, __desired); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
     case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); success = __atomic_compare_exchange_relaxed(__ptr, __expected, __desired); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
@@ -235,7 +235,7 @@ template<class _Type>
 void __atomic_exchange(_Type volatile *__ptr, const _Type *__val, _Type *__ret, int __memorder) {
     switch (__memorder) {
     case __ATOMIC_RELEASE: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); __atomic_exchange_relaxed(__ptr, __val, __ret);break;
-    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _LIBCUDACXX_FALLTHROUGH();
+    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _CCCL_FALLTHROUGH();
     case __ATOMIC_CONSUME:
     case __ATOMIC_ACQUIRE: __atomic_exchange_relaxed(__ptr, __val, __ret); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
     case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); __atomic_exchange_relaxed(__ptr, __val, __ret); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
@@ -271,7 +271,7 @@ _Type __atomic_fetch_add(_Type volatile *__ptr, _Delta __val, int __memorder) {
 
     switch (__memorder) {
     case __ATOMIC_RELEASE: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); __atomic_fetch_add_relaxed(__ptr, &__val, __dest);break;
-    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _LIBCUDACXX_FALLTHROUGH();
+    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _CCCL_FALLTHROUGH();
     case __ATOMIC_CONSUME:
     case __ATOMIC_ACQUIRE: __atomic_fetch_add_relaxed(__ptr, &__val, __dest); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
     case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); __atomic_fetch_add_relaxed(__ptr, &__val, __dest); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
@@ -313,7 +313,7 @@ _Type __atomic_fetch_and(_Type volatile *__ptr, _Delta __val, int __memorder) {
 
     switch (__memorder) {
     case __ATOMIC_RELEASE: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); __atomic_fetch_and_relaxed(__ptr, &__val, __dest);break;
-    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _LIBCUDACXX_FALLTHROUGH();
+    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _CCCL_FALLTHROUGH();
     case __ATOMIC_CONSUME:
     case __ATOMIC_ACQUIRE: __atomic_fetch_and_relaxed(__ptr, &__val, __dest); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
     case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); __atomic_fetch_and_relaxed(__ptr, &__val, __dest); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
@@ -350,7 +350,7 @@ _Type __atomic_fetch_xor(_Type volatile *__ptr, _Delta __val, int __memorder) {
 
     switch (__memorder) {
     case __ATOMIC_RELEASE: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); __atomic_fetch_xor_relaxed(__ptr, &__val, __dest);break;
-    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _LIBCUDACXX_FALLTHROUGH();
+    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _CCCL_FALLTHROUGH();
     case __ATOMIC_CONSUME:
     case __ATOMIC_ACQUIRE: __atomic_fetch_xor_relaxed(__ptr, &__val, __dest); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
     case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); __atomic_fetch_xor_relaxed(__ptr, &__val, __dest); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
@@ -387,7 +387,7 @@ _Type __atomic_fetch_or(_Type volatile *__ptr, _Delta __val, int __memorder) {
 
     switch (__memorder) {
     case __ATOMIC_RELEASE: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); __atomic_fetch_or_relaxed(__ptr, &__val, __dest);break;
-    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _LIBCUDACXX_FALLTHROUGH();
+    case __ATOMIC_ACQ_REL: _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); _CCCL_FALLTHROUGH();
     case __ATOMIC_CONSUME:
     case __ATOMIC_ACQUIRE: __atomic_fetch_or_relaxed(__ptr, &__val, __dest); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;
     case __ATOMIC_SEQ_CST: _LIBCUDACXX_MEMORY_BARRIER(); __atomic_fetch_or_relaxed(__ptr, &__val, __dest); _LIBCUDACXX_COMPILER_OR_MEMORY_BARRIER(); break;

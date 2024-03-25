@@ -130,7 +130,7 @@ public:
     _LIBCUDACXX_INLINE_VISIBILITY
     explicit operator bool() const { return __ptr_ != nullptr; }
 
-    _LIBCUDACXX_NODISCARD_AFTER_CXX17 _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     bool empty() const { return __ptr_ == nullptr; }
 
     _LIBCUDACXX_INLINE_VISIBILITY

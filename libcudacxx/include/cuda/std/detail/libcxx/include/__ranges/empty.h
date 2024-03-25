@@ -80,7 +80,7 @@ struct __fn
 {
   _LIBCUDACXX_TEMPLATE(class _Tp)
   _LIBCUDACXX_REQUIRES(__member_empty<_Tp>)
-  _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY constexpr bool
+  _CCCL_NODISCARD _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY constexpr bool
   operator()(_Tp&& __t) const noexcept(noexcept(bool(__t.empty())))
   {
     return bool(__t.empty());
@@ -88,7 +88,7 @@ struct __fn
 
   _LIBCUDACXX_TEMPLATE(class _Tp)
   _LIBCUDACXX_REQUIRES(__can_invoke_size<_Tp>)
-  _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY constexpr bool
+  _CCCL_NODISCARD _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY constexpr bool
   operator()(_Tp&& __t) const noexcept(noexcept(_CUDA_VRANGES::size(__t)))
   {
     return _CUDA_VRANGES::size(__t) == 0;
@@ -96,7 +96,7 @@ struct __fn
 
   _LIBCUDACXX_TEMPLATE(class _Tp)
   _LIBCUDACXX_REQUIRES(__can_compare_begin_end<_Tp>)
-  _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY constexpr bool
+  _CCCL_NODISCARD _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY constexpr bool
   operator()(_Tp&& __t) const noexcept(noexcept(bool(_CUDA_VRANGES::begin(__t) == _CUDA_VRANGES::end(__t))))
   {
     return _CUDA_VRANGES::begin(__t) == _CUDA_VRANGES::end(__t);

@@ -101,22 +101,22 @@ public:
   constexpr unexpected& operator=(unexpected&&)      = default;
 
   // [expected.un.obs]
-  _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+  _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
   constexpr const _Err& error() const& noexcept {
     return __unex_;
   }
 
-  _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+  _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
   constexpr _Err& error() & noexcept {
     return __unex_;
   }
 
-  _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+  _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
   constexpr const _Err&& error() const&& noexcept {
     return _CUDA_VSTD::move(__unex_);
   }
 
-  _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+  _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
   constexpr _Err&& error() && noexcept {
     return _CUDA_VSTD::move(__unex_);
   }
@@ -141,14 +141,14 @@ public:
   // [expected.un.eq]
   template <class _UErr>
   friend _LIBCUDACXX_INLINE_VISIBILITY constexpr
-  _LIBCUDACXX_NODISCARD_EXT bool operator==(const unexpected& __lhs, const unexpected<_UErr>& __rhs) noexcept(
+  _CCCL_NODISCARD bool operator==(const unexpected& __lhs, const unexpected<_UErr>& __rhs) noexcept(
     noexcept(static_cast<bool>(__lhs.error() == __rhs.error()))) {
     return __lhs.error() == __rhs.error();
   }
 #if _CCCL_STD_VER < 2020
   template <class _UErr>
   _LIBCUDACXX_INLINE_VISIBILITY
-  _LIBCUDACXX_NODISCARD_EXT friend constexpr bool operator!=(const unexpected& __lhs, const unexpected<_UErr>& __rhs) noexcept(
+  _CCCL_NODISCARD friend constexpr bool operator!=(const unexpected& __lhs, const unexpected<_UErr>& __rhs) noexcept(
     noexcept(static_cast<bool>(__lhs.error() != __rhs.error()))) {
     return __lhs.error() != __rhs.error();
   }

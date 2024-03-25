@@ -123,7 +123,7 @@ _LIBCUDACXX_BEGIN_NAMESPACE_CPO(__rend)
   public:
     _LIBCUDACXX_TEMPLATE(class _Tp)
       _LIBCUDACXX_REQUIRES(__member_rend<_Tp>)
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
     constexpr auto operator()(_Tp&& __t) const
       noexcept(noexcept(_LIBCUDACXX_AUTO_CAST(__t.rend())))
     {
@@ -132,7 +132,7 @@ _LIBCUDACXX_BEGIN_NAMESPACE_CPO(__rend)
 
     _LIBCUDACXX_TEMPLATE(class _Tp)
       _LIBCUDACXX_REQUIRES(__unqualified_rend<_Tp>)
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
     constexpr auto operator()(_Tp&& __t) const
       noexcept(noexcept(_LIBCUDACXX_AUTO_CAST(rend(__t))))
     {
@@ -141,7 +141,7 @@ _LIBCUDACXX_BEGIN_NAMESPACE_CPO(__rend)
 
     _LIBCUDACXX_TEMPLATE(class _Tp)
       _LIBCUDACXX_REQUIRES(__can_reverse<_Tp>)
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
     constexpr auto operator()(_Tp&& __t) const
       noexcept(noexcept(_CUDA_VRANGES::begin(__t)))
     {
@@ -164,7 +164,7 @@ _LIBCUDACXX_BEGIN_NAMESPACE_CPO(__crend)
   struct __fn {
     _LIBCUDACXX_TEMPLATE(class _Tp)
       _LIBCUDACXX_REQUIRES(is_lvalue_reference_v<_Tp&&>)
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
     constexpr auto operator()(_Tp&& __t) const
       noexcept(noexcept(_CUDA_VRANGES::rend(static_cast<const remove_reference_t<_Tp>&>(__t))))
       -> decltype(      _CUDA_VRANGES::rend(static_cast<const remove_reference_t<_Tp>&>(__t)))
@@ -172,7 +172,7 @@ _LIBCUDACXX_BEGIN_NAMESPACE_CPO(__crend)
 
     _LIBCUDACXX_TEMPLATE(class _Tp)
       _LIBCUDACXX_REQUIRES(is_rvalue_reference_v<_Tp&&>)
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_HIDE_FROM_ABI _LIBCUDACXX_INLINE_VISIBILITY
     constexpr auto operator()(_Tp&& __t) const
       noexcept(noexcept(_CUDA_VRANGES::rend(static_cast<const _Tp&&>(__t))))
       -> decltype(      _CUDA_VRANGES::rend(static_cast<const _Tp&&>(__t)))

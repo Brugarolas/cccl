@@ -99,11 +99,11 @@ private:
     mutex_type& __m_;
 public:
 
-    _LIBCUDACXX_NODISCARD_EXT _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     explicit lock_guard(mutex_type& __m) _LIBCUDACXX_THREAD_SAFETY_ANNOTATION(acquire_capability(__m))
         : __m_(__m) {__m_.lock();}
 
-    _LIBCUDACXX_NODISCARD_EXT _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     lock_guard(mutex_type& __m, adopt_lock_t) _LIBCUDACXX_THREAD_SAFETY_ANNOTATION(requires_capability(__m))
         : __m_(__m) {}
     _LIBCUDACXX_INLINE_VISIBILITY

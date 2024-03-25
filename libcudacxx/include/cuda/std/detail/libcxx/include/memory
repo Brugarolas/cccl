@@ -1252,10 +1252,10 @@ struct _LIBCUDACXX_TEMPLATE_VIS allocator_traits
                   typename __allocator_traits_rebind<allocator_type, _Tp>::type;
     template <class _Tp> using rebind_traits = allocator_traits<rebind_alloc<_Tp> >;
 
-    _LIBCUDACXX_NODISCARD_AFTER_CXX17 _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     static pointer allocate(allocator_type& __a, size_type __n)
         {return __a.allocate(__n);}
-    _LIBCUDACXX_NODISCARD_AFTER_CXX17 _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     static pointer allocate(allocator_type& __a, size_type __n, const_void_pointer __hint)
         {return __allocate(__a, __n, __hint,
             __has_allocate_hint<allocator_type, size_type, const_void_pointer>());}
@@ -1527,7 +1527,7 @@ public:
         {return _CUDA_VSTD::addressof(__x);}
     _LIBCUDACXX_INLINE_VISIBILITY const_pointer address(const_reference __x) const noexcept
         {return _CUDA_VSTD::addressof(__x);}
-    _LIBCUDACXX_NODISCARD_AFTER_CXX17 _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     pointer allocate(size_type __n, allocator<void>::const_pointer = 0)
         {
         if (__n > max_size())
@@ -1740,7 +1740,7 @@ public:
 };
 
 template <class _Tp>
-_LIBCUDACXX_NODISCARD_EXT _LIBCUDACXX_NO_CFI
+_CCCL_NODISCARD _LIBCUDACXX_NO_CFI
 pair<_Tp*, ptrdiff_t>
 get_temporary_buffer(ptrdiff_t __n) noexcept
 {

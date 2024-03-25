@@ -2203,7 +2203,7 @@ INCLUDE_FILE_PATTERNS  =
 
 PREDEFINED             = THRUST_DOXYGEN \
                          THRUST_CPP_DIALECT=2017 \
-                         THRUST_NODISCARD=[[nodiscard]] \
+                         _CCCL_NODISCARD=[[nodiscard]] \
                          THRUST_MR_DEFAULT_ALIGNMENT=alignof(std::max_align_t) \
                          "THRUST_NAMESPACE_BEGIN=namespace thrust {" \
                          THRUST_NAMESPACE_END=}

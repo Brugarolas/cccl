@@ -680,7 +680,7 @@ public:
     return value_;
   }
 
-  THRUST_NODISCARD _CCCL_HOST_DEVICE
+  _CCCL_NODISCARD _CCCL_HOST_DEVICE
   value_type extract()
   {
     return std::move(value_);
@@ -921,7 +921,7 @@ public:
 
   // Blocks.
   // Precondition: `true == valid_content()`.
-  THRUST_NODISCARD _CCCL_HOST
+  _CCCL_NODISCARD _CCCL_HOST
   value_type extract()
   {
     if (!valid_content())

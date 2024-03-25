@@ -54,7 +54,7 @@ static_assert(!cuda::std::is_invocable_v<IterSwapT&&, int&, HasIterSwap&>);
 
 #if !defined(TEST_COMPILER_CUDACC_BELOW_11_3) && !defined(TEST_COMPILER_MSVC_2017)
 struct NodiscardIterSwap {
-  __host__ __device__ friend _LIBCUDACXX_NODISCARD_EXT int iter_swap(NodiscardIterSwap&, NodiscardIterSwap&) { return 0; }
+  __host__ __device__ friend _CCCL_NODISCARD int iter_swap(NodiscardIterSwap&, NodiscardIterSwap&) { return 0; }
 };
 
 __host__ __device__

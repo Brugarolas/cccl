@@ -204,7 +204,7 @@ public:
         )
     }
 
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     arrival_token arrive(_CUDA_VSTD::ptrdiff_t __update = 1) {
         _LIBCUDACXX_DEBUG_ASSERT(__update >= 0, "Arrival count update must be non-negative.");
         arrival_token __token = {};
@@ -537,7 +537,7 @@ public:
     }
 
     template<class _Rep, class _Period>
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     bool try_wait_for(arrival_token && __token, const _CUDA_VSTD::chrono::duration<_Rep, _Period>& __dur) {
         auto __nanosec = _CUDA_VSTD::chrono::duration_cast<_CUDA_VSTD::chrono::nanoseconds>(__dur);
 
@@ -545,13 +545,13 @@ public:
     }
 
     template<class _Clock, class _Duration>
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     bool try_wait_until(arrival_token && __token, const _CUDA_VSTD::chrono::time_point<_Clock, _Duration>& __time) {
         return try_wait_for(_CUDA_VSTD::move(__token), (__time - _Clock::now()));
     }
 
     template<class _Rep, class _Period>
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     bool try_wait_parity_for(bool __phase_parity, const _CUDA_VSTD::chrono::duration<_Rep, _Period>& __dur) {
         auto __nanosec = _CUDA_VSTD::chrono::duration_cast<_CUDA_VSTD::chrono::nanoseconds>(__dur);
 
@@ -559,7 +559,7 @@ public:
     }
 
     template<class _Clock, class _Duration>
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     bool try_wait_parity_until(bool __phase_parity, const _CUDA_VSTD::chrono::time_point<_Clock, _Duration>& __time) {
         return try_wait_parity_for(__phase_parity, (__time - _Clock::now()));
     }
@@ -578,7 +578,7 @@ inline _CUDA_VSTD::uint64_t * barrier_native_handle(barrier<thread_scope_block> 
 
 #if __cccl_ptx_isa >= 800
 extern "C" _LIBCUDACXX_DEVICE void __cuda_ptx_barrier_arrive_tx_is_not_supported_before_SM_90__();
-_LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_DEVICE inline
+_CCCL_NODISCARD _LIBCUDACXX_DEVICE inline
 barrier<thread_scope_block>::arrival_token barrier_arrive_tx(
     barrier<thread_scope_block> & __b,
     _CUDA_VSTD::ptrdiff_t __arrive_count_update,
@@ -776,7 +776,7 @@ _CUDA_VSTD::uint64_t * __try_get_barrier_handle<::cuda::thread_scope_block, _CUD
 struct __memcpy_completion_impl {
 
     template<typename _Group>
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY static
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY static
     async_contract_fulfillment __defer(
         __completion_mechanism __cm, _Group const & __group, _CUDA_VSTD::size_t __size, barrier<::cuda::thread_scope_block> & __barrier) {
         // In principle, this is the overload for shared memory barriers. However, a
@@ -827,7 +827,7 @@ struct __memcpy_completion_impl {
     }
 
     template<typename _Group, thread_scope _Sco, typename _CompF>
-    _LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY static
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY static
     async_contract_fulfillment __defer(
         __completion_mechanism __cm, _Group const & __group, _CUDA_VSTD::size_t __size, barrier<_Sco, _CompF> & __barrier) {
         return __defer_non_smem_barrier(__cm, __group, __size, __barrier);
@@ -1093,14 +1093,14 @@ struct __get_size_align<T, _CUDA_VSTD::__void_t<decltype(T::align)>> {
  ***********************************************************************/
 
 template<_CUDA_VSTD::size_t _Align, typename _Group>
-_LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_DEVICE inline
+_CCCL_NODISCARD _LIBCUDACXX_DEVICE inline
 __completion_mechanism __dispatch_memcpy_async_any_to_any(_Group const & __group, char * __dest_char, char const * __src_char, _CUDA_VSTD::size_t __size, uint32_t __allowed_completions, uint64_t* __bar_handle) {
     __cp_async_fallback_mechanism<_Align>(__group, __dest_char, __src_char, __size);
     return __completion_mechanism::__sync;
 }
 
 template<_CUDA_VSTD::size_t _Align, typename _Group>
-_LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_DEVICE inline
+_CCCL_NODISCARD _LIBCUDACXX_DEVICE inline
 __completion_mechanism __dispatch_memcpy_async_global_to_shared(_Group const & __group, char * __dest_char, char const * __src_char, _CUDA_VSTD::size_t __size, uint32_t __allowed_completions, uint64_t* __bar_handle) {
 #if __cccl_ptx_isa >= 800
     NV_IF_TARGET(NV_PROVIDES_SM_90, (
@@ -1134,7 +1134,7 @@ __completion_mechanism __dispatch_memcpy_async_global_to_shared(_Group const & _
 
 // __dispatch_memcpy_async is the internal entry point for dispatching to the correct memcpy_async implementation.
 template<_CUDA_VSTD::size_t _Align, typename _Group>
-_LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+_CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
 __completion_mechanism __dispatch_memcpy_async(_Group const & __group, char * __dest_char, char const * __src_char, size_t __size, _CUDA_VSTD::uint32_t __allowed_completions, uint64_t* __bar_handle) {
     NV_IF_ELSE_TARGET(NV_IS_DEVICE, (
         // Dispatch based on direction of the copy: global to shared, shared to
@@ -1161,7 +1161,7 @@ __completion_mechanism __dispatch_memcpy_async(_Group const & __group, char * __
 }
 
 template<_CUDA_VSTD::size_t _Align, typename _Group>
-_LIBCUDACXX_NODISCARD_ATTRIBUTE _LIBCUDACXX_INLINE_VISIBILITY
+_CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
 __completion_mechanism __dispatch_memcpy_async(_Group const & __group, char * __dest_char, char const * __src_char, _CUDA_VSTD::size_t __size, _CUDA_VSTD::uint32_t __allowed_completions) {
     _LIBCUDACXX_DEBUG_ASSERT(! (__allowed_completions & uint32_t(__completion_mechanism::__mbarrier_complete_tx)), "Cannot allow mbarrier_complete_tx completion mechanism when not passing a barrier. ");
     return __dispatch_memcpy_async<_Align>(__group, __dest_char, __src_char, __size, __allowed_completions, nullptr);

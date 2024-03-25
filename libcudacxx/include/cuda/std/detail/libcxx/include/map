@@ -1104,7 +1104,7 @@ public:
     _LIBCUDACXX_INLINE_VISIBILITY
     const_reverse_iterator crend() const noexcept {return rend();}
 
-    _LIBCUDACXX_NODISCARD_AFTER_CXX17 _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     bool      empty() const noexcept {return __tree_.size() == 0;}
     _LIBCUDACXX_INLINE_VISIBILITY
     size_type size() const noexcept {return __tree_.size();}
@@ -1813,7 +1813,7 @@ public:
     _LIBCUDACXX_INLINE_VISIBILITY
     const_reverse_iterator crend() const noexcept {return rend();}
 
-    _LIBCUDACXX_NODISCARD_AFTER_CXX17 _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     bool empty() const noexcept {return __tree_.size() == 0;}
     _LIBCUDACXX_INLINE_VISIBILITY
     size_type size() const noexcept {return __tree_.size();}

@@ -2325,7 +2325,7 @@ inline _LIBCUDACXX_INLINE_VISIBILITY bool __does_policy_contain(launch __policy,
 { return (int(__policy) & int(__value)) != 0; }
 
 template <class _Fp, class... _Args>
-_LIBCUDACXX_NODISCARD_AFTER_CXX17
+_CCCL_NODISCARD
 future<typename __invoke_of<__decay_t<_Fp>, __decay_t<_Args>...>::type>
 async(launch __policy, _Fp&& __f, _Args&&... __args)
 {
@@ -2351,7 +2351,7 @@ async(launch __policy, _Fp&& __f, _Args&&... __args)
 }
 
 template <class _Fp, class... _Args>
-_LIBCUDACXX_NODISCARD_AFTER_CXX17 inline _LIBCUDACXX_INLINE_VISIBILITY
+_CCCL_NODISCARD inline _LIBCUDACXX_INLINE_VISIBILITY
 future<typename __invoke_of<__decay_t<_Fp>, __decay_t<_Args>...>::type>
 async(_Fp&& __f, _Args&&... __args)
 {

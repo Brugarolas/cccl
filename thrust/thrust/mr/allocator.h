@@ -130,7 +130,7 @@ public:
      *  \param n number of elements to allocate
      *  \return a pointer to the newly allocated storage.
      */
-    THRUST_NODISCARD
+    _CCCL_NODISCARD
     _CCCL_HOST
     pointer allocate(size_type n)
     {

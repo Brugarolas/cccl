@@ -747,7 +747,7 @@ public:
     const_iterator cbefore_begin() const noexcept
         {return const_iterator(base::__before_begin());}
 
-    _LIBCUDACXX_NODISCARD_AFTER_CXX17 _LIBCUDACXX_INLINE_VISIBILITY
+    _CCCL_NODISCARD _LIBCUDACXX_INLINE_VISIBILITY
     bool empty() const noexcept
         {return base::__before_begin()->__next_ == nullptr;}
     _LIBCUDACXX_INLINE_VISIBILITY

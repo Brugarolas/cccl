@@ -97,7 +97,7 @@ struct __count_dynamic_extents<> {
 };
 
 template <size_t... _Extents, size_t... _OtherExtents>
-_LIBCUDACXX_HOST_DEVICE
+_CCCL_HOST_DEVICE
 static constexpr false_type __check_compatible_extents(
   false_type, _CUDA_VSTD::integer_sequence<size_t, _Extents...>, _CUDA_VSTD::integer_sequence<size_t, _OtherExtents...>
 ) noexcept { return { }; }
@@ -119,7 +119,7 @@ static integral_constant<
     ) /* && ... */
   )
 >
-_LIBCUDACXX_HOST_DEVICE
+_CCCL_HOST_DEVICE
 __check_compatible_extents(
   true_type, _CUDA_VSTD::integer_sequence<size_t, _Extents...>, _CUDA_VSTD::integer_sequence<size_t, _OtherExtents...>
 ) noexcept { return { }; }
@@ -538,7 +538,7 @@ using dextents = typename __detail::__make_dextents<_IndexType, _Rank>::type;
 
 #if defined(__MDSPAN_USE_CLASS_TEMPLATE_ARGUMENT_DEDUCTION)
 template <class... _IndexTypes>
-_LIBCUDACXX_HOST_DEVICE extents(_IndexTypes...)
+_CCCL_HOST_DEVICE extents(_IndexTypes...)
   // Workaround for nvcc
   //-> extents<size_t, __detail::__make_dynamic_extent<_IndexTypes>()...>;
   // Adding "(void)" so that clang doesn't complain this is unused

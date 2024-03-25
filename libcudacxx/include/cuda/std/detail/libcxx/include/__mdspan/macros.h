@@ -67,14 +67,14 @@
 
 #ifndef __MDSPAN_FORCE_INLINE_FUNCTION
 #  ifdef __MDSPAN_COMPILER_MSVC // Microsoft compilers
-#    define __MDSPAN_FORCE_INLINE_FUNCTION __forceinline _LIBCUDACXX_HOST_DEVICE
+#    define __MDSPAN_FORCE_INLINE_FUNCTION __forceinline _CCCL_HOST_DEVICE
 #  else
-#    define __MDSPAN_FORCE_INLINE_FUNCTION __attribute__((always_inline)) _LIBCUDACXX_HOST_DEVICE
+#    define __MDSPAN_FORCE_INLINE_FUNCTION __attribute__((always_inline)) _CCCL_HOST_DEVICE
 #  endif
 #endif
 
 #ifndef __MDSPAN_INLINE_FUNCTION
-#  define __MDSPAN_INLINE_FUNCTION inline _LIBCUDACXX_HOST_DEVICE
+#  define __MDSPAN_INLINE_FUNCTION inline _CCCL_HOST_DEVICE
 #endif
 
 // In CUDA defaulted functions do not need host device markup
@@ -587,7 +587,7 @@ __fold_left_assign_impl(_Args&&... __args) {
 
 
 template <class... _Args>
-_LIBCUDACXX_HOST_DEVICE
+_CCCL_HOST_DEVICE
 constexpr __mdspan_enable_fold_comma __fold_comma_impl(_Args&&...) noexcept { return { }; }
 
 template <bool... _Bs>

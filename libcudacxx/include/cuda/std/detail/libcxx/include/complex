@@ -332,20 +332,20 @@ public:
 
 #if !defined(_CCCL_COMPILER_NVRTC)
   template <class _Up>
-  _LIBCUDACXX_INLINE_VISIBILITY complex(const ::std::complex<_Up>& __other)
+  _CCCL_HOST complex(const ::std::complex<_Up>& __other)
       : __re_(_LIBCUDACXX_ACCESS_STD_COMPLEX_REAL(__other))
       , __im_(_LIBCUDACXX_ACCESS_STD_COMPLEX_IMAG(__other))
   {}
 
   template <class _Up>
-  _LIBCUDACXX_INLINE_VISIBILITY complex& operator=(const ::std::complex<_Up>& __other)
+  _CCCL_HOST complex& operator=(const ::std::complex<_Up>& __other)
   {
     __re_ = _LIBCUDACXX_ACCESS_STD_COMPLEX_REAL(__other);
     __im_ = _LIBCUDACXX_ACCESS_STD_COMPLEX_IMAG(__other);
     return *this;
   }
 
-  _LIBCUDACXX_HOST _CCCL_CONSTEXPR_CXX14 operator ::std::complex<_Tp>() const
+  _CCCL_HOST _CCCL_CONSTEXPR_CXX14 operator ::std::complex<_Tp>() const
   {
     return {__re_, __im_};
   }
@@ -802,7 +802,7 @@ _LIBCUDACXX_INLINE_VISIBILITY _CCCL_CONSTEXPR_CXX14 bool operator!=(const _Tp& _
 
 #if !defined(_CCCL_COMPILER_NVRTC)
 template <class _Tp, class _Up>
-_LIBCUDACXX_INLINE_VISIBILITY _CCCL_CONSTEXPR_CXX14 bool
+_CCCL_HOST _CCCL_CONSTEXPR_CXX14 bool
 operator==(const complex<_Tp>& __x, const ::std::complex<_Up>& __y)
 {
   return __x.real() == _LIBCUDACXX_ACCESS_STD_COMPLEX_REAL(__y)
@@ -811,7 +811,7 @@ operator==(const complex<_Tp>& __x, const ::std::complex<_Up>& __y)
 
 #  if _CCCL_STD_VER <= 2017
 template <class _Tp, class _Up>
-_LIBCUDACXX_INLINE_VISIBILITY _CCCL_CONSTEXPR_CXX14 bool
+_CCCL_HOST _CCCL_CONSTEXPR_CXX14 bool
 operator==(const ::std::complex<_Up>& __x, const complex<_Tp>& __y)
 {
   return __y.real() == _LIBCUDACXX_ACCESS_STD_COMPLEX_REAL(__x)
@@ -819,14 +819,14 @@ operator==(const ::std::complex<_Up>& __x, const complex<_Tp>& __y)
 }
 
 template <class _Tp, class _Up>
-_LIBCUDACXX_INLINE_VISIBILITY _CCCL_CONSTEXPR_CXX14 bool
+_CCCL_HOST _CCCL_CONSTEXPR_CXX14 bool
 operator!=(const complex<_Tp>& __x, const ::std::complex<_Up>& __y)
 {
   return !(__x == __y);
 }
 
 template <class _Tp, class _Up>
-_LIBCUDACXX_INLINE_VISIBILITY _CCCL_CONSTEXPR_CXX14 bool
+_CCCL_HOST _CCCL_CONSTEXPR_CXX14 bool
 operator!=(const ::std::complex<_Up>& __x, const complex<_Tp>& __y)
 {
   return !(__x == __y);

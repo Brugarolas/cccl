@@ -106,19 +106,19 @@ public:
 
 #  if !defined(_CCCL_COMPILER_NVRTC)
   template <class _Up>
-  _LIBCUDACXX_INLINE_VISIBILITY complex(const ::std::complex<_Up>& __other)
+  complex(const ::std::complex<_Up>& __other)
       : __repr_(_LIBCUDACXX_ACCESS_STD_COMPLEX_REAL(__other), _LIBCUDACXX_ACCESS_STD_COMPLEX_IMAG(__other))
   {}
 
   template <class _Up>
-  _LIBCUDACXX_INLINE_VISIBILITY complex& operator=(const ::std::complex<_Up>& __other)
+  complex& operator=(const ::std::complex<_Up>& __other)
   {
     __repr_.x = _LIBCUDACXX_ACCESS_STD_COMPLEX_REAL(__other);
     __repr_.y = _LIBCUDACXX_ACCESS_STD_COMPLEX_IMAG(__other);
     return *this;
   }
 
-  _LIBCUDACXX_HOST operator ::std::complex<value_type>() const
+  operator ::std::complex<value_type>() const
   {
     return {__repr_.x, __repr_.y};
   }

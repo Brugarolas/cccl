@@ -58,8 +58,8 @@ struct _Src
     _LIBCUDACXX_INLINE_VISIBILITY operator const _Dst<_Up> &();
 };
 template <size_t> struct __one { typedef char type; };
-template <class _Bp, class _Dp> _LIBCUDACXX_HOST_DEVICE typename __one<sizeof(_Dst<_Bp>(_CUDA_VSTD::declval<_Src<_Dp> >()))>::type __test(int);
-template <class _Bp, class _Dp> _LIBCUDACXX_HOST_DEVICE __two __test(...);
+template <class _Bp, class _Dp> _CCCL_HOST_DEVICE typename __one<sizeof(_Dst<_Bp>(_CUDA_VSTD::declval<_Src<_Dp> >()))>::type __test(int);
+template <class _Bp, class _Dp> _CCCL_HOST_DEVICE __two __test(...);
 }
 
 template <class _Bp, class _Dp>

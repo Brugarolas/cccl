@@ -140,19 +140,21 @@ public:
 
   // [expected.un.eq]
   template <class _UErr>
-  friend _LIBCUDACXX_INLINE_VISIBILITY constexpr
-  _CCCL_NODISCARD bool operator==(const unexpected& __lhs, const unexpected<_UErr>& __rhs) noexcept(
-    noexcept(static_cast<bool>(__lhs.error() == __rhs.error()))) {
+  _LIBCUDACXX_INLINE_VISIBILITY _CCCL_NODISCARD_FRIEND constexpr bool
+  operator==(const unexpected& __lhs,
+             const unexpected<_UErr>& __rhs) noexcept(noexcept(static_cast<bool>(__lhs.error() == __rhs.error())))
+  {
     return __lhs.error() == __rhs.error();
   }
-#if _CCCL_STD_VER < 2020
+#  if _CCCL_STD_VER <= 2017
   template <class _UErr>
-  _LIBCUDACXX_INLINE_VISIBILITY
-  _CCCL_NODISCARD friend constexpr bool operator!=(const unexpected& __lhs, const unexpected<_UErr>& __rhs) noexcept(
-    noexcept(static_cast<bool>(__lhs.error() != __rhs.error()))) {
+  _LIBCUDACXX_INLINE_VISIBILITY _CCCL_NODISCARD_FRIEND constexpr bool
+  operator!=(const unexpected& __lhs,
+             const unexpected<_UErr>& __rhs) noexcept(noexcept(static_cast<bool>(__lhs.error() != __rhs.error())))
+  {
     return __lhs.error() != __rhs.error();
   }
-#endif
+#  endif // _CCCL_STD_VER <= 2017
 
 private:
   _Err __unex_;

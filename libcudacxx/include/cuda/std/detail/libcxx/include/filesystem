@@ -1372,7 +1372,7 @@ private:
 _LIBCUDACXX_AVAILABILITY_FILESYSTEM_PUSH
 
 template <class... _Args>
-_LIBCUDACXX_NORETURN inline _LIBCUDACXX_INLINE_VISIBILITY
+_CCCL_NORETURN inline _LIBCUDACXX_INLINE_VISIBILITY
 #ifndef _LIBCUDACXX_NO_EXCEPTIONS
 void __throw_filesystem_error(_Args&&... __args) {
   throw filesystem_error(std::forward<_Args>(__args)...);

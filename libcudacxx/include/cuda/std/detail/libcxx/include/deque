@@ -910,8 +910,8 @@ template <bool>
 class __deque_base_common
 {
 protected:
-    _LIBCUDACXX_NORETURN void __throw_length_error() const;
-    _LIBCUDACXX_NORETURN void __throw_out_of_range() const;
+    _CCCL_NORETURN void __throw_length_error() const;
+    _CCCL_NORETURN void __throw_out_of_range() const;
 };
 
 template <bool __b>

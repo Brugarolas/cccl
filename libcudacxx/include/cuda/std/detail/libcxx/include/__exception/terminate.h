@@ -35,7 +35,7 @@ _CCCL_DIAG_SUPPRESS_MSVC(4702) // unreachable code
 
 _LIBCUDACXX_BEGIN_NAMESPACE_STD_NOVERSION // purposefully not using versioning namespace
 
-_LIBCUDACXX_NORETURN inline _LIBCUDACXX_INLINE_VISIBILITY void __cccl_terminate() noexcept
+_CCCL_NORETURN inline _LIBCUDACXX_INLINE_VISIBILITY void __cccl_terminate() noexcept
 {
   NV_IF_ELSE_TARGET(NV_IS_HOST, (::std::exit(0);), (__trap();))
   _LIBCUDACXX_UNREACHABLE();
@@ -62,7 +62,7 @@ inline _LIBCUDACXX_INLINE_VISIBILITY terminate_handler get_terminate() noexcept
 
 #endif
 
-_LIBCUDACXX_NORETURN inline _LIBCUDACXX_INLINE_VISIBILITY void terminate() noexcept
+_CCCL_NORETURN inline _LIBCUDACXX_INLINE_VISIBILITY void terminate() noexcept
 {
 #ifndef _LIBCUDACXX_NO_EXCEPTIONS
   try

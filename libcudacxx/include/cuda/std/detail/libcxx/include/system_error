@@ -482,7 +482,7 @@ private:
     static string __init(const error_code&, string);
 };
 
-_LIBCUDACXX_NORETURN _LIBCUDACXX_FUNC_VIS
+_CCCL_NORETURN _LIBCUDACXX_FUNC_VIS
 void __throw_system_error(int ev, const char* what_arg);
 
 _LIBCUDACXX_END_NAMESPACE_STD

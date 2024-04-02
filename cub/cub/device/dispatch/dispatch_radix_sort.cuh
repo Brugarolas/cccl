@@ -1493,7 +1493,7 @@ struct DispatchRadixSort : SelectedPolicy
      *   Kernel function pointer to parameterization of cub::DeviceRadixSortSingleTileKernel
      */
     template <typename ActivePolicyT, typename SingleTileKernelT>
-    CUB_RUNTIME_FUNCTION _CCCL_ATTRIBUTE_HIDDEN _CCCL_FORCEINLINE cudaError_t
+    CUB_RUNTIME_FUNCTION _CCCL_VISIBILITY_HIDDEN _CCCL_FORCEINLINE cudaError_t
     InvokeSingleTile(SingleTileKernelT single_tile_kernel)
     {
         cudaError error = cudaSuccess;
@@ -1708,7 +1708,7 @@ struct DispatchRadixSort : SelectedPolicy
             typename UpsweepPolicyT,
             typename ScanPolicyT,
             typename DownsweepPolicyT>
-        CUB_RUNTIME_FUNCTION _CCCL_ATTRIBUTE_HIDDEN _CCCL_FORCEINLINE
+        CUB_RUNTIME_FUNCTION _CCCL_VISIBILITY_HIDDEN _CCCL_FORCEINLINE
         cudaError_t InitPassConfig(
             UpsweepKernelT      upsweep_kernel,
             ScanKernelT         scan_kernel,
@@ -2038,7 +2038,7 @@ struct DispatchRadixSort : SelectedPolicy
               typename UpsweepKernelT,
               typename ScanKernelT,
               typename DownsweepKernelT>
-    CUB_RUNTIME_FUNCTION _CCCL_ATTRIBUTE_HIDDEN _CCCL_FORCEINLINE cudaError_t
+    CUB_RUNTIME_FUNCTION _CCCL_VISIBILITY_HIDDEN _CCCL_FORCEINLINE cudaError_t
     InvokePasses(UpsweepKernelT upsweep_kernel,
                  UpsweepKernelT alt_upsweep_kernel,
                  ScanKernelT scan_kernel,
@@ -2692,7 +2692,7 @@ struct DispatchSegmentedRadixSort : SelectedPolicy
 
         /// Initialize pass configuration
         template <typename SegmentedPolicyT>
-        CUB_RUNTIME_FUNCTION _CCCL_ATTRIBUTE_HIDDEN _CCCL_FORCEINLINE
+        CUB_RUNTIME_FUNCTION _CCCL_VISIBILITY_HIDDEN _CCCL_FORCEINLINE
         cudaError_t InitPassConfig(SegmentedKernelT segmented_kernel)
         {
             this->segmented_kernel  = segmented_kernel;
@@ -2720,7 +2720,7 @@ struct DispatchSegmentedRadixSort : SelectedPolicy
      *   cub::DeviceSegmentedRadixSortKernel
      */
     template <typename ActivePolicyT, typename SegmentedKernelT>
-    CUB_RUNTIME_FUNCTION _CCCL_ATTRIBUTE_HIDDEN _CCCL_FORCEINLINE cudaError_t
+    CUB_RUNTIME_FUNCTION _CCCL_VISIBILITY_HIDDEN _CCCL_FORCEINLINE cudaError_t
     InvokePasses(SegmentedKernelT segmented_kernel, SegmentedKernelT alt_segmented_kernel)
     {
         cudaError error = cudaSuccess;

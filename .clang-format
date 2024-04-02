@@ -35,6 +35,7 @@ AttributeMacros: [
                   '_CCCL_NO_UNIQUE_ADDRESS',
                   '_CCCL_NODISCARD',
                   '_CCCL_NORETURN',
+                  '_CCCL_VISIBILITY_HIDDEN',
                   'CUB_RUNTIME_FUNCTION',
                   'CUB_DETAIL_KERNEL_ATTRIBUTES',
                   'THRUST_RUNTIME_FUNCTION',

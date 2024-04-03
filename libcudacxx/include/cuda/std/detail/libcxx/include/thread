@@ -115,7 +115,7 @@ _LIBCUDACXX_BEGIN_NAMESPACE_STD
 
 template <class _Tp> class __thread_specific_ptr;
 class _LIBCUDACXX_TYPE_VIS __thread_struct;
-class _LIBCUDACXX_HIDDEN __thread_struct_imp;
+class _CCCL_VISIBILITY_HIDDEN __thread_struct_imp;
 class __assoc_sub_state;
 
 _LIBCUDACXX_FUNC_VIS __thread_specific_ptr<__thread_struct>& __thread_local_data();
@@ -148,7 +148,7 @@ class __thread_specific_ptr
     __thread_specific_ptr(const __thread_specific_ptr&);
     __thread_specific_ptr& operator=(const __thread_specific_ptr&);
 
-    _LIBCUDACXX_HIDDEN static void _LIBCUDACXX_TLS_DESTRUCTOR_CC __at_thread_exit(void*);
+    _CCCL_VISIBILITY_HIDDEN static void _LIBCUDACXX_TLS_DESTRUCTOR_CC __at_thread_exit(void*);
 
 public:
     typedef _Tp* pointer;

@@ -498,7 +498,7 @@ struct __ct_abs<_Result, _Source, false> {
 
 
 template<class _Tp>
-constexpr _LIBCUDACXX_HIDDEN
+constexpr _CCCL_VISIBILITY_HIDDEN
 _Tp __gcd(_Tp __m, _Tp __n)
 {
     static_assert((!is_signed<_Tp>::value), "");

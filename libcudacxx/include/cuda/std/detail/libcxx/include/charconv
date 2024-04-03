@@ -157,7 +157,7 @@ static constexpr uint32_t __pow10_32[] = {
 };
 
 template <typename _Tp, typename = void>
-struct _LIBCUDACXX_HIDDEN __traits_base
+struct _CCCL_VISIBILITY_HIDDEN __traits_base
 {
     using type = uint64_t;
 
@@ -178,7 +178,7 @@ struct _LIBCUDACXX_HIDDEN __traits_base
 };
 
 template <typename _Tp>
-struct _LIBCUDACXX_HIDDEN
+struct _CCCL_VISIBILITY_HIDDEN
     __traits_base<_Tp, decltype(void(uint32_t{declval<_Tp>()}))>
 {
     using type = uint32_t;
@@ -239,7 +239,7 @@ __mul_overflowed(_Tp __a, _Up __b, _Tp& __r)
 }
 
 template <typename _Tp>
-struct _LIBCUDACXX_HIDDEN __traits : __traits_base<_Tp>
+struct _CCCL_VISIBILITY_HIDDEN __traits : __traits_base<_Tp>
 {
     static constexpr int digits = numeric_limits<_Tp>::digits10 + 1;
     using __traits_base<_Tp>::__pow;
@@ -444,7 +444,7 @@ __in_pattern(_Tp __c)
     return '0' <= __c && __c <= '9';
 }
 
-struct _LIBCUDACXX_HIDDEN __in_pattern_result
+struct _CCCL_VISIBILITY_HIDDEN __in_pattern_result
 {
     bool __ok;
     int __val;

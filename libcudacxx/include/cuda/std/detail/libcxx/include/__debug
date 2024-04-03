@@ -84,7 +84,7 @@ struct _LIBCUDACXX_TYPE_VIS __c_node
     virtual bool __subscriptable(const void*, ptrdiff_t) const = 0;
 
     void __add(__i_node* __i);
-    _LIBCUDACXX_HIDDEN void __remove(__i_node* __i);
+    _CCCL_VISIBILITY_HIDDEN void __remove(__i_node* __i);
 };
 
 template <class _Cont>
@@ -201,9 +201,9 @@ public:
     bool __subscriptable(const void* __i, ptrdiff_t __n) const;
     bool __less_than_comparable(const void* __i, const void* __j) const;
 private:
-    _LIBCUDACXX_HIDDEN
+    _CCCL_VISIBILITY_HIDDEN
     __i_node* __insert_iterator(void* __i);
-    _LIBCUDACXX_HIDDEN
+    _CCCL_VISIBILITY_HIDDEN
     __i_node* __find_iterator(const void* __i) const;
 
     friend _LIBCUDACXX_FUNC_VIS __libcpp_db* __get_db();

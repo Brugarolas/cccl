@@ -1358,7 +1358,7 @@ public:
   void __create_what(int __num_paths);
 
 private:
-  struct _LIBCUDACXX_HIDDEN _Storage {
+  struct _CCCL_VISIBILITY_HIDDEN _Storage {
     _LIBCUDACXX_INLINE_VISIBILITY
     _Storage(const path& __p1, const path& __p2) : __p1_(__p1), __p2_(__p2) {}
 
@@ -1944,7 +1944,7 @@ inline _LIBCUDACXX_INLINE_VISIBILITY path weakly_canonical(path const& __p,
 
 class directory_iterator;
 class recursive_directory_iterator;
-class _LIBCUDACXX_HIDDEN __dir_stream;
+class _CCCL_VISIBILITY_HIDDEN __dir_stream;
 
 class directory_entry {
   typedef _CUDA_VSTD_FS::path _Path;
@@ -2608,7 +2608,7 @@ private:
   operator==(const recursive_directory_iterator&,
              const recursive_directory_iterator&) noexcept;
 
-  struct _LIBCUDACXX_HIDDEN __shared_imp;
+  struct _CCCL_VISIBILITY_HIDDEN __shared_imp;
   shared_ptr<__shared_imp> __imp_;
   bool __rec_;
 }; // class recursive_directory_iterator

@@ -24,10 +24,10 @@
 
 _LIBCUDACXX_BEGIN_NAMESPACE_STD
 
-template <class _Tp, size_t _Np> class _LIBCUDACXX_HIDDEN __sso_allocator;
+template <class _Tp, size_t _Np> class _CCCL_VISIBILITY_HIDDEN __sso_allocator;
 
 template <size_t _Np>
-class _LIBCUDACXX_HIDDEN __sso_allocator<void, _Np>
+class _CCCL_VISIBILITY_HIDDEN __sso_allocator<void, _Np>
 {
 public:
     typedef const void*       const_pointer;
@@ -35,7 +35,7 @@ public:
 };
 
 template <class _Tp, size_t _Np>
-class _LIBCUDACXX_HIDDEN __sso_allocator
+class _CCCL_VISIBILITY_HIDDEN __sso_allocator
 {
     typename aligned_storage<sizeof(_Tp) * _Np>::type buf_;
     bool __allocated_;

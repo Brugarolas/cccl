@@ -27,6 +27,7 @@
 #  include <cuda_runtime_api.h>
 #endif // !_CCCL_CUDA_COMPILER_NVCC && !_CCCL_CUDA_COMPILER_NVHPC
 
+#include <cuda/__memory_resource/cuda_api_wrapper.h>
 #include <cuda/__memory_resource/get_property.h>
 #include <cuda/__memory_resource/properties.h>
 #include <cuda/__memory_resource/resource_ref.h>
@@ -58,19 +59,7 @@ struct cuda_memory_resource
     }
 
     void* __ptr{nullptr};
-    const ::cudaError_t __status = ::cudaMalloc(&__ptr, __bytes);
-    switch (__status)
-    {
-      case ::cudaSuccess:
-        break;
-      default:
-        ::cudaGetLastError(); // Clear CUDA error state
-#  ifndef _LIBCUDACXX_NO_EXCEPTIONS
-        throw ::cuda::cuda_error{__status, "Failed to allocate memory with cudaMalloc."};
-#  else
-        _LIBCUDACXX_UNREACHABLE();
-#  endif
-    }
+    _CCCL_TRY_CUDA_API(::cudaMalloc, "Failed to allocate memory with cudaMalloc.", &__ptr, __bytes);
     return __ptr;
   }
 
@@ -85,10 +74,8 @@ struct cuda_memory_resource
     // We need to ensure that the provided alignment matches the minimal provided alignment
     _LIBCUDACXX_ASSERT(__is_valid_alignment(__alignment),
                        "Invalid alignment passed to cuda_memory_resource::deallocate.");
-    const ::cudaError_t __status = ::cudaFree(__ptr);
-    (void) __status;
+    _CCCL_ASSERT_CUDA_API(::cudaFree, "cuda_memory_resource::deallocate failed", __ptr);
     (void) __alignment;
-    _LIBCUDACXX_ASSERT(__status == cudaSuccess, "cuda_memory_resource::deallocate failed");
   }
 
   /**

@@ -51,7 +51,7 @@ void test(const unsigned int flag) {
     while(true) {
       try {
         auto* ptr = res.allocate(5, 42);
-      } catch(const cuda::error&) {
+      } catch(const cuda::std::bad_alloc&) {
         break;
       }
       assert(false);
@@ -62,7 +62,7 @@ void test(const unsigned int flag) {
     while(true) {
       try {
         auto* ptr = res.allocate(5, 1337);
-      } catch(const cuda::error&) {
+      } catch(const cuda::std::bad_alloc&) {
         break;
       }
       assert(false);

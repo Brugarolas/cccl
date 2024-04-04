@@ -63,8 +63,6 @@ static_assert(
                                   cuda::mr::managed_memory>,
     "");
 
-// Ensure that we can only
-
 void test() {
   cuda::mr::cuda_managed_memory_resource first{};
   { // comparison against a plain cuda_managed_memory_resource

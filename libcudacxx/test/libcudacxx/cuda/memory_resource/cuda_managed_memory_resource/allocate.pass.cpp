@@ -19,7 +19,7 @@
 
 #include "test_macros.h"
 
-void ensure_device_ptr(void* ptr) {
+void ensure_managed_ptr(void* ptr) {
     assert(ptr != nullptr);
     cudaPointerAttributes attributes;
     cudaError_t status = cudaPointerGetAttributes (&attributes, ptr);
@@ -33,7 +33,7 @@ void test(const unsigned int flag) {
   { // allocate / deallocate
     auto* ptr = res.allocate(42);
     static_assert(cuda::std::is_same<decltype(ptr), void*>::value, "");
-    ensure_device_ptr(ptr);
+    ensure_managed_ptr(ptr);
 
     res.deallocate(ptr, 42);
   }
@@ -41,7 +41,7 @@ void test(const unsigned int flag) {
   { // allocate / deallocate with alignment
     auto* ptr = res.allocate(42, 4);
     static_assert(cuda::std::is_same<decltype(ptr), void*>::value, "");
-    ensure_device_ptr(ptr);
+    ensure_managed_ptr(ptr);
 
     res.deallocate(ptr, 42, 4);
   }

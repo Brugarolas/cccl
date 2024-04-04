@@ -23,18 +23,18 @@
 
 #if !defined(_CCCL_COMPILER_MSVC_2017)
 
-#if !defined(_CCCL_CUDA_COMPILER_NVCC) && !defined(_CCCL_CUDA_COMPILER_NVHPC)
-#  include <cuda_runtime_api.h>
-#endif // !_CCCL_CUDA_COMPILER_NVCC && !_CCCL_CUDA_COMPILER_NVHPC
+#  if !defined(_CCCL_CUDA_COMPILER_NVCC) && !defined(_CCCL_CUDA_COMPILER_NVHPC)
+#    include <cuda_runtime_api.h>
+#  endif // !_CCCL_CUDA_COMPILER_NVCC && !_CCCL_CUDA_COMPILER_NVHPC
 
-#include <cuda/__memory_resource/cuda_api_wrapper.h>
-#include <cuda/__memory_resource/get_property.h>
-#include <cuda/__memory_resource/properties.h>
-#include <cuda/__memory_resource/resource_ref.h>
-#include <cuda/__memory_resource/resource.h>
-#include <cuda/std/detail/libcxx/include/__new/bad_alloc.h>
+#  include <cuda/__memory_resource/cuda_api_wrapper.h>
+#  include <cuda/__memory_resource/get_property.h>
+#  include <cuda/__memory_resource/properties.h>
+#  include <cuda/__memory_resource/resource_ref.h>
+#  include <cuda/__memory_resource/resource.h>
+#  include <cuda/std/detail/libcxx/include/__new/bad_alloc.h>
 
-#if _CCCL_STD_VER >= 2014
+#  if _CCCL_STD_VER >= 2014
 
 _LIBCUDACXX_BEGIN_NAMESPACE_CUDA_MR
 
@@ -48,9 +48,9 @@ struct cuda_memory_resource
    * @param __bytes The size in bytes of the allocation.
    * @param __alignment The requested alignment of the allocation.
    * @throw cuda::cuda_error of the returned error code
-   * @return void* Pointer to the newly allocated memory
+   * @return Pointer to the newly allocated memory
    */
-  void* allocate(const size_t __bytes, const size_t __alignment = __default_cuda_malloc_alignment) const
+  void* allocate(const size_t __bytes, const size_t __alignment = default_cuda_malloc_alignment) const
   {
     // We need to ensure that the provided alignment matches the minimal provided alignment
     if (!__is_valid_alignment(__alignment))
@@ -69,7 +69,7 @@ struct cuda_memory_resource
    * @param __bytes The number of bytes that was passed to the `allocate` call that returned \p __ptr.
    * @param __alignment The alignment that was passed to the `allocate` call that returned \p __ptr.
    */
-  void deallocate(void* __ptr, const size_t, const size_t __alignment = __default_cuda_malloc_alignment) const
+  void deallocate(void* __ptr, const size_t, const size_t __alignment = default_cuda_malloc_alignment) const
   {
     // We need to ensure that the provided alignment matches the minimal provided alignment
     _LIBCUDACXX_ASSERT(__is_valid_alignment(__alignment),
@@ -86,7 +86,7 @@ struct cuda_memory_resource
   {
     return true;
   }
-#  if _CCCL_STD_VER <= 2017
+#    if _CCCL_STD_VER <= 2017
   /**
    * @brief Inequality comparison with another cuda_memory_resource
    * @return false
@@ -95,13 +95,14 @@ struct cuda_memory_resource
   {
     return false;
   }
-#  endif // _CCCL_STD_VER <= 2017
+#    endif // _CCCL_STD_VER <= 2017
 
   /**
    * @brief Equality comparison between a cuda_memory_resource and another resource
    * @param __lhs The cuda_memory_resource
    * @param __rhs The resource to compare to
-   * @return Result of equality comparison of both resources converted to a resource_ref<>
+   * @return If the underlying types are equality comparable, returns the result of equality comparison of both
+   * resources. Otherwise, returns false.
    */
   template <class _Resource>
   _LIBCUDACXX_NODISCARD_FRIEND auto operator==(cuda_memory_resource const& __lhs, _Resource const& __rhs) noexcept
@@ -109,7 +110,7 @@ struct cuda_memory_resource
   {
     return resource_ref<>{const_cast<cuda_memory_resource&>(__lhs)} == resource_ref<>{const_cast<_Resource&>(__rhs)};
   }
-#  if _CCCL_STD_VER <= 2017
+#    if _CCCL_STD_VER <= 2017
   /**
    * @copydoc cuda_memory_resource::operator==<_Resource>(cuda_memory_resource const&, _Resource const&)
    */
@@ -137,7 +138,7 @@ struct cuda_memory_resource
   {
     return resource_ref<>{const_cast<cuda_memory_resource&>(__lhs)} != resource_ref<>{const_cast<_Resource&>(__rhs)};
   }
-#  endif // _CCCL_STD_VER <= 2017
+#    endif // _CCCL_STD_VER <= 2017
 
   /**
    * @brief Enables the `device_accessible` property
@@ -149,14 +150,14 @@ struct cuda_memory_resource
    */
   static constexpr bool __is_valid_alignment(const size_t __alignment) noexcept
   {
-    return __alignment <= __default_cuda_malloc_alignment && (__default_cuda_malloc_alignment % __alignment == 0);
+    return __alignment <= default_cuda_malloc_alignment && (default_cuda_malloc_alignment % __alignment == 0);
   }
 };
 static_assert(resource_with<cuda_memory_resource, device_accessible>, "");
 
 _LIBCUDACXX_END_NAMESPACE_CUDA_MR
 
-#endif // _CCCL_STD_VER >= 2014
+#  endif // _CCCL_STD_VER >= 2014
 
 #endif // !_CCCL_COMPILER_MSVC_2017
 

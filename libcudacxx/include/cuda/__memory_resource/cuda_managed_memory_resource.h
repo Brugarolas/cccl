@@ -62,7 +62,7 @@ public:
    * @throw cuda::cuda_error of the returned error code
    * @return Pointer to the newly allocated memory
    */
-  void* allocate(const size_t __bytes, const size_t __alignment = __default_cuda_malloc_alignment) const
+  void* allocate(const size_t __bytes, const size_t __alignment = default_cuda_malloc_alignment) const
   {
     // We need to ensure that the provided alignment matches the minimal provided alignment
     if (!__is_valid_alignment(__alignment))
@@ -82,7 +82,7 @@ public:
    * @param __bytes The number of bytes that was passed to the `allocate` call that returned \p __ptr.
    * @param __alignment The alignment that was passed to the `allocate` call that returned \p __ptr.
    */
-  void deallocate(void* __ptr, const size_t, const size_t __alignment = __default_cuda_malloc_alignment) const
+  void deallocate(void* __ptr, const size_t, const size_t __alignment = default_cuda_malloc_alignment) const
   {
     // We need to ensure that the provided alignment matches the minimal provided alignment
     _LIBCUDACXX_ASSERT(__is_valid_alignment(__alignment),
@@ -179,7 +179,7 @@ public:
    */
   static constexpr bool __is_valid_alignment(const size_t __alignment) noexcept
   {
-    return __alignment <= __default_cuda_malloc_alignment && (__default_cuda_malloc_alignment % __alignment == 0);
+    return __alignment <= default_cuda_malloc_alignment && (default_cuda_malloc_alignment % __alignment == 0);
   }
 };
 static_assert(resource_with<cuda_managed_memory_resource, managed_memory>, "");

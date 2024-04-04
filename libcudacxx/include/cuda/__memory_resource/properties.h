@@ -23,44 +23,49 @@
 
 #if !defined(_CCCL_COMPILER_MSVC_2017)
 
-#if _CCCL_STD_VER >= 2014
+#  if _CCCL_STD_VER >= 2014
 
 #include <cuda/std/cstddef>
 
 _LIBCUDACXX_BEGIN_NAMESPACE_CUDA_MR
 
 /**
- * @brief The default alignment by a cudaMalloc{...} call
+ * @brief The default alignment by a cudaMalloc call
  */
-_LIBCUDACXX_INLINE_VAR constexpr size_t __default_cuda_malloc_alignment = 256;
+_LIBCUDACXX_INLINE_VAR constexpr size_t default_cuda_malloc_alignment = 256;
 
 /**
- * @brief The default alignment on a host allocation {...} call
+ * @brief The default alignment by a cudaMallocHost call
  */
-_LIBCUDACXX_INLINE_VAR constexpr size_t __default_cuda_malloc_host_alignment = alignof(_CUDA_VSTD::max_align_t);
+_LIBCUDACXX_INLINE_VAR constexpr size_t default_cuda_malloc_host_alignment = alignof(_CUDA_VSTD::max_align_t);
 
-/// \struct device_accessible
-/// \brief The \c device_accessible property signals that the allocated memory is device accessible
+/**
+ * @brief The \c device_accessible property signals that the allocated memory is device accessible
+ */
 struct device_accessible
 {};
 
-/// \struct host_accessible
-/// \brief The \c host_accessible property signals that the allocated memory is host accessible
+/**
+ * @brief The \c host_accessible property signals that the allocated memory is host accessible
+ */
 struct host_accessible
 {};
-/// \struct managed_memory
-/// \brief The \c managed_memory property signals that the allocated memory is managed
+
+/**
+ * @brief The \c managed_memory property signals that the allocated memory is managed
+ */
 struct managed_memory
 {};
 
-/// \struct pinned_memory
-/// \brief The \c pinned_memory property signals that the allocated memory is not pageable.
+/**
+ * @brief The \c pinned_memory property signals that the allocated memory is not pageable.
+ */
 struct pinned_memory
 {};
 
 _LIBCUDACXX_END_NAMESPACE_CUDA_MR
 
-#endif // _CCCL_STD_VER >= 2014
+#  endif // _CCCL_STD_VER >= 2014
 
 #endif // !_CCCL_COMPILER_MSVC_2017
 

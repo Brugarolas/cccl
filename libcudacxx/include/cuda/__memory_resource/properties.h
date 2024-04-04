@@ -23,7 +23,7 @@
 
 #if !defined(_CCCL_COMPILER_MSVC_2017)
 
-#if _CCCL_STD_VER >= 2014
+#  if _CCCL_STD_VER >= 2014
 
 _LIBCUDACXX_BEGIN_NAMESPACE_CUDA_MR
 
@@ -32,24 +32,27 @@ _LIBCUDACXX_BEGIN_NAMESPACE_CUDA_MR
  */
 _LIBCUDACXX_INLINE_VAR constexpr size_t __default_cuda_malloc_alignment = 256;
 
-/// \struct device_accessible
-/// \brief The \c device_accessible property signals that the allocated memory is device accessible
+/**
+ * @brief The \c device_accessible property signals that the allocated memory is device accessible
+ */
 struct device_accessible
 {};
 
-/// \struct host_accessible
-/// \brief The \c host_accessible property signals that the allocated memory is host accessible
+/**
+ * @brief The \c host_accessible property signals that the allocated memory is host accessible
+ */
 struct host_accessible
 {};
 
-/// \struct managed_memory
-/// \brief The \c managed_memory property signals that the allocated memory is managed
+/**
+ * @brief The \c managed_memory property signals that the allocated memory is managed
+ */
 struct managed_memory
 {};
 
 _LIBCUDACXX_END_NAMESPACE_CUDA_MR
 
-#endif // _CCCL_STD_VER >= 2014
+#  endif // _CCCL_STD_VER >= 2014
 
 #endif // !_CCCL_COMPILER_MSVC_2017
 

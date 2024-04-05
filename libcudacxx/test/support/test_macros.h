@@ -234,6 +234,7 @@
 
 #ifndef TEST_HAS_NO_EXCEPTIONS
 #  if defined(__CUDA_ARCH__)                                            \
+ || !defined(LIBCUDACXX_ENABLE_EXCEPTIONS)                              \
  || (defined(_CCCL_COMPILER_CLANG) && !(__has_feature(cxx_exceptions))) \
  || (defined(_CCCL_COMPILER_MSVC) && _HAS_EXCEPTIONS == 0)              \
  || (defined(__GNUC__) && !__EXCEPTIONS) // Catches all gcc based compilers

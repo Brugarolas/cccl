@@ -69,16 +69,12 @@ _LIBCUDACXX_BEGIN_NAMESPACE_STD
 
 class _LIBCUDACXX_TYPE_VIS __libcpp_refstring
 {
-private:
+public:
   // We are totally faking it here. The libc++ implementation has a base class stored at the front of the string
   // This totales to 2 * size_t + int + pointer.
   // To avoid having to implement refcounting, simply use an inplace array and cutoff
-  static constexpr size_t __length = 32;
-  char __imp_[__length];
+  static constexpr size_t __length = 64;
 
-  _LIBCUDACXX_INLINE_VISIBILITY bool __uses_refcount() const;
-
-public:
   _LIBCUDACXX_INLINE_VISIBILITY explicit __libcpp_refstring(const char* __msg) noexcept
   {
     for (size_t __i = 0; __i < __length - 1; ++__i)
@@ -91,12 +87,13 @@ public:
     }
     __imp_[__length - 1] = '\0';
   }
-  _LIBCUDACXX_INLINE_VISIBILITY ~__libcpp_refstring();
 
   _LIBCUDACXX_INLINE_VISIBILITY _LIBCUDACXX_HIDE_FROM_ABI const char* c_str() const noexcept
   {
     return __imp_;
   }
+private:
+  char __imp_[__length];
 };
 
 _LIBCUDACXX_END_NAMESPACE_STD
@@ -105,7 +102,7 @@ _LIBCUDACXX_BEGIN_NAMESPACE_STD_NOVERSION
 
 class _LIBCUDACXX_TYPE_VIS logic_error : public exception
 {
-private:
+protected:
   _CUDA_VSTD_NOVERSION::__libcpp_refstring __imp_;
 
 public:

@@ -232,10 +232,14 @@
 #define TEST_HAS_NO_RTTI
 #endif
 
-#if !TEST_HAS_FEATURE(cxx_exceptions) && !defined(__cpp_exceptions) \
-     && !defined(__EXCEPTIONS)
-#define TEST_HAS_NO_EXCEPTIONS
-#endif
+#ifndef TEST_HAS_NO_EXCEPTIONS
+#  if defined(__CUDA_ARCH__)                                            \
+ || (defined(_CCCL_COMPILER_CLANG) && !(__has_feature(cxx_exceptions))) \
+ || (defined(_CCCL_COMPILER_MSVC) && _HAS_EXCEPTIONS == 0)              \
+ || (defined(__GNUC__) && !__EXCEPTIONS) // Catches all gcc based compilers
+#    define TEST_HAS_NO_EXCEPTIONS
+#  endif
+#endif // !TEST_HAS_NO_EXCEPTIONS
 
 #if defined(TEST_COMPILER_NVCC) || defined(TEST_COMPILER_NVRTC)
 #define TEST_HAS_NO_EXCEPTIONS

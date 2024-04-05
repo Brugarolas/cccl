@@ -27,11 +27,11 @@
 #    include <cuda_runtime_api.h>
 #  endif // !_CCCL_CUDA_COMPILER_NVCC && !_CCCL_CUDA_COMPILER_NVHPC
 
-#  include <cuda/__memory_resource/cuda_api_wrapper.h>
 #  include <cuda/__memory_resource/get_property.h>
 #  include <cuda/__memory_resource/properties.h>
 #  include <cuda/__memory_resource/resource_ref.h>
 #  include <cuda/__memory_resource/resource.h>
+#  include <cuda/std/__cuda/api_wrapper.h>
 #  include <cuda/std/detail/libcxx/include/__new/bad_alloc.h>
 
 #  if _CCCL_STD_VER >= 2014

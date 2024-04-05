@@ -8,8 +8,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef _CUDA__MEMORY_RESOURCE_CUDA_API_WRAPPER_H
-#define _CUDA__MEMORY_RESOURCE_CUDA_API_WRAPPER_H
+#ifndef _CUDA__STD__CUDA_API_WRAPPER_H
+#define _CUDA__STD__CUDA_API_WRAPPER_H
 
 #include <cuda/std/detail/__config>
 
@@ -52,4 +52,4 @@
   _LIBCUDACXX_ASSERT(__status == cudaSuccess, _MSG); \
   (void) __status;
 
-#endif //_CUDA__MEMORY_RESOURCE_CUDA_API_WRAPPER_H
+#endif //_CUDA__STD__CUDA_API_WRAPPER_H

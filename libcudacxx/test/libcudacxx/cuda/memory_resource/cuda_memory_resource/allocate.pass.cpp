@@ -55,6 +55,7 @@ void test() {
     while(true) {
       try {
         auto* ptr = res.allocate(5, 42);
+        unused(ptr);
       } catch(const cuda::std::bad_alloc&) {
         break;
       }
@@ -66,6 +67,7 @@ void test() {
     while(true) {
       try {
         auto* ptr = res.allocate(5, 1337);
+        unused(ptr);
       } catch(const cuda::std::bad_alloc&) {
         break;
       }
